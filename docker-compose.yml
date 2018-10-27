@@ -1,0 +1,28 @@
+backend:
+  image: node:10.12
+  ports:
+    - "3000:3000"
+  volumes:
+    - ./backend:/backend
+  working_dir: /backend/myapp/
+  command: npm start
+  links:
+    - mongodb
+  tty: true
+  
+frontend:
+  image: node:10.12
+  ports:
+    - "8080:8080"
+  volumes:
+    - ./frontend:/frontend
+  working_dir: /frontend/myapp
+  tty: true
+  
+mongodb:
+  container_name: mongodb
+  image: mongo
+  ports:
+    - "27017:27017"
+  volumes:
+    - ./mongodb/:/data/db
