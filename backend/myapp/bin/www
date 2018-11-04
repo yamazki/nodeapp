@@ -92,6 +92,6 @@ function onListening() {
 }
 
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', SocketioFunction.log);
+  socket.on('mount', SocketioFunction.log);
 });
+

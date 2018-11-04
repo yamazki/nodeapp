@@ -1,94 +1,37 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <div v-for="(Content, index) in Contents">
+      <router-link :to="Content.Link">
+        <article class="tile is-child box">
+          <p class="title">{{Content.Title}}</p>
+          <p class="subtitle">{{Content.SubTitle}}</p>
+          <p class="detail">{{Content.Detail}}</p>
+        </article>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  components: {
+  },
   name: 'HelloWorld',
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      Contents: [
+        { 
+          Title: 'Real Time Sync Bulletin Board',
+          SubTitle: 'Using Socket.io Bulletin Board',
+          Detail: 'If you use this bulletin board, you can communicate with many people in real time',
+          Link: './BulletinBoard'
+        },
+      ]
+    }
+  },
+  methods: {
+    test: () => {
+      alert("test");
     }
   }
 }
