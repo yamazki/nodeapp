@@ -13,6 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@mdi/font": "^3.0.39",
     "buefy": "^0.7.0",
     "socket.io-client": "^2.1.1",
     "vue": "^2.5.2",

@@ -1,3 +1,5 @@
+
+
 class socketioFunction {
   
   static log (data) {

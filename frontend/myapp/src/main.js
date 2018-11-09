@@ -5,7 +5,10 @@ import Vue from 'vue'
 //using buefy
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
-Vue.use(Buefy)
+import "@mdi/font/css/materialdesignicons.css"
+
+Vue.use(Buefy);
+window.Vue = Vue;
 
 import App from './App'
 import router from './router'
