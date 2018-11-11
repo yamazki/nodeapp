@@ -13,7 +13,7 @@ const SocketioFunction = require('../lib/SocketioFunction');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
 
 /**
@@ -92,9 +92,11 @@ function onListening() {
 }
 
 io.on('connection', function (socket) {
+  socket.join('some room');
+  socket.join('room');
   socket.on('mount', SocketioFunction.log);
   socket.on('new message', function (message) {
-    io.emit('new message', message);
+    io.to("room").emit('new message', message);
   })
 });
 

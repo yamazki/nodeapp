@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div v-for="(Content, index) in Contents">
+    <div v-for="Content in Contents">
       <router-link :to="Content.Link">
         <article class="tile is-child box">
           <p class="title">{{Content.Title}}</p>

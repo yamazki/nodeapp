@@ -2,15 +2,16 @@
   <div class="bulletinboard">
     <h1>{{messages}}</h1>
     <div class="inputField">
-      <b-field >
-        <b-input v-model="message"
-                 placeholder="input message..."
-                 icon="chat"
+        <div class="textArea">
+        <b-input type="textarea"
+                 v-model="message"
+                 placeholder="input messages..."
+                 v-on:keydown.enter.native="setKeyDownCode"
                  v-on:keyup.enter.native="emitMessage"
+                 :rows="rows"
                  expanded>
         </b-input>
-        <a class="button is-dark" v-on:click="emitMessage">subbmit</a>
-      </b-field>
+        </div>
     </div>
   </div>
 </template>
@@ -22,23 +23,45 @@ export default {
   name: 'BulletinBoard',
   data () {
     return {
-      message:'',
+      message: '',
+      sendMessage: {},
       messages: [],
       socket: '',
       isLoading: true,
+      keyDownCode: 0,
+      userNmae: "nanashi",
+      chatRoom: "test",
+    }
+  },
+  computed: {
+    rows: function() {
+      var num = this.message.split("\n").length;
+      return (num > 1) ? num : 1;
     }
   },
   mounted() {
-    this.socket = io("localhost:3000");
+    this.socket = io("localhost:8080");
     this.socket.on("new message", (newMessage) => {
       this.messages.push(newMessage);
     }); 
-    
   },
   methods: {
+    
+    setKeyDownCode: function() {
+      if(event.shiftKey == false) event.preventDefault()
+      console.log(event)
+      this.keyDownCode = event.keyCode
+    },
+    
+    makeUserProfile: function() {
+      return {[userName]: this.userNmae, [shatRoom]: this.chatRoom}
+    },
+    
     emitMessage: function() {
-      this.socket.emit("new message", this.message)
-      this.message = "";
+      if((event.keyCode == "13" && this.keyDownCode == "13") && event.shiftKey == false) {
+        this.socket.emit("new message", this.message)
+        this.message = "";
+      }
     }
   }
 }
@@ -47,8 +70,7 @@ export default {
 <style>
 .inputField {
   padding: 10px 10px;
-  position: fixed;
-  bottom: 0px;
+  position: fixed; bottom: 0px;
   width: 100%;
 }
 </style>
